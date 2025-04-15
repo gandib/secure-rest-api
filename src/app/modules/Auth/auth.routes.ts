@@ -4,6 +4,7 @@ import validateRequest from '../../middlewares/validateRequest';
 import { authValidations } from './auth.validation';
 import passport from 'passport';
 import { authorizeRoles } from '../../utils/authorizeRoles';
+import { loginRateLimiter } from '../../utils/loginRateLimiter';
 
 const router = express.Router();
 
@@ -15,6 +16,7 @@ router.post(
 
 router.post(
   '/login',
+  loginRateLimiter,
   validateRequest(authValidations.loginValidationSchema),
   authControllers.loginUser,
 );
