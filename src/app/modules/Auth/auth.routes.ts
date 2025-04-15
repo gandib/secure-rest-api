@@ -3,7 +3,7 @@ import { authControllers } from './auth.controller';
 import validateRequest from '../../middlewares/validateRequest';
 import { authValidations } from './auth.validation';
 import passport from 'passport';
-// import validateRequest from '../../middlewares/validateRequest';
+import { authorizeRoles } from '../../utils/authorizeRoles';
 
 const router = express.Router();
 
@@ -22,6 +22,7 @@ router.post(
 router.get(
   '/me',
   passport.authenticate('jwt', { session: false }),
+  authorizeRoles('user', 'admin'),
   authControllers.getUser,
 );
 

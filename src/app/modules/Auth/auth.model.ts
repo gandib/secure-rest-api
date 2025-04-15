@@ -14,6 +14,8 @@ const userSchema = new Schema<TUser>(
       enum: ['admin', 'user'],
       default: 'user',
     },
+    transactionId: { type: String, default: '' },
+    paymentStatus: { type: String, default: 'Unpaid' },
     isDeleted: { type: Boolean, default: false },
   },
   {
