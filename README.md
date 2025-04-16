@@ -31,34 +31,34 @@ npm install
 
 Create a .env file in the root directory of the project and configure the following variables:
 
-# App Environment
+### App Environment
 
 NODE_ENV=development # or production
 
-# Server Port
+### Server Port
 
 PORT=5000
 
-# Database Connection
+### Database Connection
 
 DATABASE_URL=mongodb://localhost:27017/your-db-name
 
-# Password Hashing
+### Password Hashing
 
 DCRYPT_SALT_ROUNDS=10 # Number of salt rounds for bcrypt
 
-# JWT Secrets & Expiry
+### JWT Secrets & Expiry
 
-JWT_ACCESS_SECRET=your_access_secret
-JWT_REFRESH_SECRET=your_refresh_secret
-JWT_ACCESS_EXPIRE_IN=15m # Access token expiration time
-JWT_REFRESH_EXPIRE_IN=7d # Refresh token expiration time
+- JWT_ACCESS_SECRET=your_access_secret
+- JWT_REFRESH_SECRET=your_refresh_secret
+- JWT_ACCESS_EXPIRE_IN=15m # Access token expiration time
+- JWT_REFRESH_EXPIRE_IN=7d # Refresh token expiration time
 
-# Payment Integration
+### Payment Integration
 
 Here using Amarpay payment system
 
-PAYMENT_URL=https://payment.api.com/initiate
-PAYMENT_VERIFY_URL=https://payment.api.com/verify
-STORE_ID=your_store_id
-SIGNATURE_KEY=your_signature_key
+- PAYMENT_URL=https://payment.api.com/initiate
+- PAYMENT_VERIFY_URL=https://payment.api.com/verify
+- STORE_ID=your_store_id
+- SIGNATURE_KEY=your_signature_key
