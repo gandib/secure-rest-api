@@ -3,8 +3,7 @@ import httpStatus from 'http-status';
 import { TUser } from './auth.interface';
 import { User } from './auth.model';
 import AppError from '../../errors/appError';
-import bcrypt from 'bcrypt';
-import { createToken, verifyToken } from './auth.utils';
+import { comparePassword, createToken, verifyToken } from './auth.utils';
 import config from '../../config';
 
 const createUser = async (payload: TUser) => {
@@ -30,7 +29,7 @@ const getUser = async (user: any) => {
 
 const loginUser = async (payload: { email: string; password: string }) => {
   //checking if the user is exists
-  const user = await User.findOne({ email: payload?.email });
+  const user = await User.findOne({ email: payload?.email }).select('password');
 
   if (!user) {
     throw new AppError(httpStatus.NOT_FOUND, 'User is not found!');
@@ -42,13 +41,8 @@ const loginUser = async (payload: { email: string; password: string }) => {
     throw new AppError(httpStatus.FORBIDDEN, 'User is already deleted!');
   }
 
-  const hashedPassword = await bcrypt.hash(
-    payload.password,
-    Number(config.bcrypt_salt_rounds),
-  );
-
   // checking if password is correct
-  if (!(await bcrypt.compare(payload?.password, hashedPassword))) {
+  if (!(await comparePassword(payload?.password, user?.password))) {
     throw new AppError(httpStatus.FORBIDDEN, 'Password is not matched!');
   }
 
